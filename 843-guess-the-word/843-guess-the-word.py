@@ -1,3 +1,4 @@
+#https://leetcode.com/problems/guess-the-word/discuss/425068/Python-Beats-99
 class Solution:
     def findSecretWord(self, wordlist: List[str], master: 'Master') -> None:
         place_counts = collections.defaultdict(int)
