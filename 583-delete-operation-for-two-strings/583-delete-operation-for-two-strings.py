@@ -11,7 +11,6 @@ class Solution:
                     else:
                         dp[i][j] = max(dp[i-1][j], dp[i][j-1])
             
-            print(dp)
             return dp[-1][-1]
         
         lcs = lcs(word1, word2)
