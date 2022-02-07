@@ -1,3 +1,5 @@
+#https://leetcode.com/problems/super-egg-drop/discuss/1036254/Python-Egg-drop-problem-(Recursion-Memoization-Optimisation-in-Memoization-Bottom-Up)
+
 class Solution:
     def superEggDrop(self, K, N):
         dp = [[0] * (K + 1) for _ in range(N + 1)]
