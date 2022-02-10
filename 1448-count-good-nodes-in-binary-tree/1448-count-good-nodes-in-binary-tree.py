@@ -11,8 +11,9 @@ class Solution:
             if node.val >= maximum:
                 self.count += 1
             
-            helper(node.left, max(maximum, node.val))
-            helper(node.right, max(maximum, node.val))
+            maximum = max(maximum, node.val)
+            helper(node.left, maximum)
+            helper(node.right, maximum)
         
         helper(root, root.val)
         return self.count
