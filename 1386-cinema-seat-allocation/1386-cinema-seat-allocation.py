@@ -5,7 +5,7 @@ class Solution:
             if row in reserved:
                 reserved[row].add(col)
             else:
-                reserved[row] = {col}
+                reserved[row] = set([col])
         groups = 0
         for r, set_reserved in reserved.items():
             if not set_reserved & {2, 3, 4, 5}:
