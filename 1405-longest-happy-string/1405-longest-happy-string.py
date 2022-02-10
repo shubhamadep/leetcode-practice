@@ -8,7 +8,7 @@ class Solution:
         res=''
         while h:
             top=heapq.heappop(h)
-            if len(res)>1 and top[1]*2==res[-2:]:
+            if len(res)>1 and top[1]==res[-1] and top[1]==res[-2]:
                 if not h:
                     break
                 second=heapq.heappop(h)
