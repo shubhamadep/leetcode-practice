@@ -1,16 +1,33 @@
 class Solution:
     def lowestCommonAncestor(self, p: 'Node', q: 'Node') -> 'Node':
-        p_ancestors = set()
         
-        while p:
-            # Record all ancestors of p, including self (p)
-            p_ancestors.add(p)
+        def findDepth(node):
+            depth = 0
+            while node.parent:
+                node = node.parent
+                depth += 1
+            return depth
+        
+        pd = findDepth(p)
+        qd = findDepth(q)
+        
+        if pd > qd:
+            while pd != qd:
+                p = p.parent
+                pd -= 1
+        elif qd > pd:
+            while pd != qd:
+                q = q.parent
+                qd -= 1
+        
+        while p.val != q.val:
             p = p.parent
-            
-        while q:
-            # if q present in p_ancestors, we found our node (including self (q))
-            if q in p_ancestors:
-                return q
             q = q.parent
-                
-        return None
+        
+        return p
+        
+            
+            
+        
+            
+            
