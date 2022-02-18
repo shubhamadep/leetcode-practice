@@ -9,7 +9,6 @@ class Solution:
             if char.isdigit():
                 number = number*10 + int(char)
             if char in ['+', '-', '/', '*'] or i+1 == len(s):
-                print(number, prevOperator)
                 if prevOperator == '+':
                     stack.append(number)
                 elif prevOperator == '-':
