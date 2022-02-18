@@ -1,9 +1,3 @@
-'''
-
-1,5,8,5,7,6,4,3,1
-
-'''
-
 class Solution:
     def nextPermutation(self, nums: List[int]) -> None:
         #search for first decreasing element (a) from the back. 
