@@ -1,15 +1,16 @@
-# This is O(logn) solution
+'''
+wherever left lands at the end of the binary search is the peak
+
+''' 
 class Solution:
     def findPeakElement(self, nums: List[int]) -> int:
-        
-        def helper(left, right):
-            if left == right:
-                return left
+        left, right = 0, len(nums)-1
+        while left < right:
+            mid = left + (right - left) // 2
             
-            mid = (left + right) // 2
-            if nums[mid] > nums[mid+1]:
-                return helper(left, mid)
-            return helper(mid+1, right)
+            if nums[mid] < nums[mid+1]:
+                left = mid+1
+            else:
+                right = mid
         
-        
-        return helper(0, len(nums)-1)
+        return left
