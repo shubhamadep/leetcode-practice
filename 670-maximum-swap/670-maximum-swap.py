@@ -1,4 +1,3 @@
-#https://leetcode.com/problems/maximum-swap/discuss/846837/Python-3-or-Greedy-Math-or-Explanations
 class Solution:
     def maximumSwap(self, num: int) -> int:
         s = list(str(num))
@@ -25,4 +24,3 @@ class Solution:
         
         s[min_idx], s[max_idx] = s[max_idx], s[min_idx]
         return int(''.join(s))
-                
