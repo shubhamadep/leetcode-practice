@@ -1,15 +1,13 @@
 class Solution:
     def customSortString(self, order: str, s: str) -> str:
-        counts = collections.Counter(list(s))
-        result = ""
-        for char in order:
-            if char in counts:
-                result += counts[char] * char
-                counts[char] = 0
+        countofS = collections.Counter(s)
+        ans = []
         
-        print(counts)
-        for char in counts:
-            if counts[char] != 0:
-                result += counts[char] * char
+        for c in order:
+            ans.append(countofS[c] * c)
+            countofS[c] = 0
         
-        return result
+        for char in countofS:
+            ans.append(countofS[char] * char)
+        
+        return "".join(ans)
