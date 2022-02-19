@@ -1,16 +1,21 @@
+'''
+
+[1,2,3,1,2] k=5
+
+cs += curr_num
+if cs - k in seen:
+    ans += seen[cs-k]
+
+'''
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
         seen = collections.defaultdict(int)
-        result = 0
-        cs = 0
         seen[0] = 1
-        
-        for i in range(len(nums)):
-            num = nums[i]
+        cs = 0
+        ans = 0
+        for num in nums:
             cs += num
             if cs - k in seen:
-                result += seen[cs-k]
+                ans += seen[cs - k]
             seen[cs] += 1
-        
-        return result
-                
+        return ans
