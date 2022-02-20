@@ -13,5 +13,4 @@ class Solution:
             buildNumber(node.right, number)
         
         buildNumber(root, 0)
-        print(self.seen)
         return sum(self.seen)
