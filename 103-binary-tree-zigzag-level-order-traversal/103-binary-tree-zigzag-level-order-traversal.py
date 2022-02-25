@@ -19,7 +19,6 @@ class Solution:
             else:
                 result.append([child.val for child in children[::-1]])
 
-            q = collections.deque()
             for child in children:
                 
                 if child.left:
