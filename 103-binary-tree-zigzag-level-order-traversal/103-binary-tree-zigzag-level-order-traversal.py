@@ -3,29 +3,27 @@ class Solution:
         if not root:
             return []
         
-        q = collections.deque()
+        q = collections.deque([root])
         zig = True
-        q.append(root)
         result = []
         
         while q:
-            
             children = []
             while q:
                 children.append(q.popleft())
                 
             if zig:
-                result.append([child.val for child in children])
+                result.append([x.val for x in children])
             else:
-                result.append([child.val for child in children[::-1]])
-
-            for child in children:
-                
-                if child.left:
-                    q.append(child.left)
-                if child.right:
-                    q.append(child.right)
+                result.append([x.val for x in children[::-1]])
+            
+            for node in children:
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
             
             zig = not zig
-
+                  
         return result
+            
