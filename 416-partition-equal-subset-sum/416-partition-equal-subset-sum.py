@@ -1,43 +1,39 @@
+'''
+
+num choices:
+
+1. can take in first - helper(idx+1, subset_sum + num) 
+2. can take in second - helper(idx, subset_sum) 
+
+if subset_sum == total_sum // 2:
+    return True
+
+'''
+
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
-        @lru_cache(maxsize=None)
-        def dfs(nums: Tuple[int], n: int, subset_sum: int) -> bool:
-            # Base cases
+        
+        self.memo = {}
+        def helper(idx, subset_sum):
+            if idx == 0:
+                if subset_sum == 0:
+                    return True
+                return False
+            
+            if (idx, subset_sum) in self.memo:
+                return self.memo[(idx, subset_sum)]
+            
             if subset_sum == 0:
                 return True
-            if n == 0 or subset_sum < 0:
-                return False
-            result = (dfs(nums, n - 1, subset_sum - nums[n - 1])
-                    or dfs(nums, n - 1, subset_sum))
-            return result
-
-        # find sum of array elements
+            
+            self.memo[(idx, subset_sum)] = helper(idx-1, subset_sum - nums[idx]) or helper(idx-1, subset_sum) 
+            return self.memo[(idx, subset_sum)]
+        
         total_sum = sum(nums)
-
-        # if total_sum is odd, it cannot be partitioned into equal sum subsets
         if total_sum % 2 != 0:
             return False
-
+        
         subset_sum = total_sum // 2
-        n = len(nums)
-        return dfs(tuple(nums), n - 1, subset_sum)
-    
-    
-# class Solution:
-#     def canPartition(self, nums: List[int]) -> bool:
-#         # find sum of array elements
-#         total_sum = sum(nums)
-
-#         # if total_sum is odd, it cannot be partitioned into equal sum subsets
-#         if total_sum % 2 != 0:
-#             return False
-#         subset_sum = total_sum // 2
-
-#         # construct a dp table of size (subset_sum + 1)
-#         dp = [False] * (subset_sum + 1)
-#         dp[0] = True
-#         for curr in nums:
-#             for j in range(subset_sum, curr - 1, -1):
-#                 dp[j] = dp[j] or dp[j - curr]
-
-#         return dp[subset_sum]
+        
+        return helper(len(nums)-1, subset_sum)
+        
