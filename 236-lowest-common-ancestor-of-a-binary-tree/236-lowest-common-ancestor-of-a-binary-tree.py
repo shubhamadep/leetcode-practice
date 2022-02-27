@@ -1,21 +1,28 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         
-        def findLCA(node):
+        def helper(node):
             if not node:
-                return 0
+                return None
             
-            left = findLCA(node.left)
-            right = findLCA(node.right)
+            mid = node == p or node == q
             
-            mid = (node == p) or (node == q)
+            left = helper(node.left)
+            right = helper(node.right)
             
             if (left and mid) or (right and mid) or (left and right):
-                self.commonAncestor = node
+                return node
             
-            return left or mid or right
+            return left or right or mid
         
-        self.commonAncestor = 0
-        findLCA(root)
-        
-        return self.commonAncestor
+        return helper(root)
+            
+            
+            
