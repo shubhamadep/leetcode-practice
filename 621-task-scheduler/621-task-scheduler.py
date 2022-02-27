@@ -4,10 +4,8 @@
 class Solution:
     def leastInterval(self, tasks: List[str], n: int) -> int:
         # frequencies of the tasks
-        frequencies = [0] * 26
-        for t in tasks:
-            frequencies[ord(t) - ord('A')] += 1
-        
+        counts = collections.Counter(tasks)
+        frequencies = [counts[x] for x in counts]
         frequencies.sort()
 
         # max frequency
