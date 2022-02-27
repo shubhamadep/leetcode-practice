@@ -21,4 +21,3 @@ class Solution:
                 prevOperator = char
         
         return sum(stack)
-        
