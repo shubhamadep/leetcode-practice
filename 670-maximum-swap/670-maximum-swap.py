@@ -1,3 +1,4 @@
+
 class Solution:
     def maximumSwap(self, num: int) -> int:
         s = list(str(num))
