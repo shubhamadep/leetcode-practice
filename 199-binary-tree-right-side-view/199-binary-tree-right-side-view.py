@@ -1,20 +1,25 @@
 class Solution:
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
-        ans = []
         if not root:
-            return ans
+            return []
         
-        queue = collections.deque()
-        queue.append(root)
+        queue = collections.deque([root])
+        result = []
+        
         while queue:
-            tempQueue = queue
-            queue = collections.deque()
-            while tempQueue:
-                node = tempQueue.popleft()
-                if node.left:
-                    queue.append(node.left)
-                if node.right:
-                    queue.append(node.right)
-            ans.append(node.val)
+            children = []
+            while queue:
+                children.append(queue.popleft())
+            
+            for child in children:
+                if child.left:
+                    queue.append(child.left)
+                
+                if child.right:
+                    queue.append(child.right)
+            
+            result.append(child.val)
         
-        return ans
+        return result
+            
+        
