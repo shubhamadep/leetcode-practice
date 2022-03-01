@@ -11,4 +11,5 @@ class Solution:
             else:
                 right = mid-1
         
+        # this can also translate to left + k as left = right + 1 after binary search
         return arr[right] + k - (arr[right] - right - 1)
