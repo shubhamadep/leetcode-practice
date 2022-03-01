@@ -32,4 +32,3 @@ class Solution:
             interval *= 2
         
         return lists[0] if numberofLists > 0 else None
-        
