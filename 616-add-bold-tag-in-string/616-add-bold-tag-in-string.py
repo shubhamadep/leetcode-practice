@@ -1,5 +1,8 @@
 # Approach 2: Trie + Merged Intervals
+
 # https://leetcode.com/problems/add-bold-tag-in-string/discuss/1035897/Python-both-version-(Trie-%2B-Merged-Intervals)-and-(Trie-%2B-mask)
+
+# can also use 2 for loops to get windows and sort by start position
 
 class Trie:
     def __init__(self):
@@ -57,4 +60,3 @@ class Solution(object):
             node = node.children[letter]
         
         node.isWord = True
-        
