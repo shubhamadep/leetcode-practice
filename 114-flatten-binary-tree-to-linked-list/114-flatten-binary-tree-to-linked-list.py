@@ -1,7 +1,5 @@
 class Solution:
     def flatten(self, root: Optional[TreeNode]) -> None:
-        if not root:
-            return []
         
         def helper(node):
             if not node:
@@ -21,5 +19,4 @@ class Solution:
             return right if right else left
         
         return helper(root)
-        
         
