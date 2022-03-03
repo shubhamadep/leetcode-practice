@@ -24,6 +24,10 @@ class Solution:
             root.right = None
         
         if root.val in self.to_delete:
-            if root.left: self.result.append(root.left)
-            if root.right: self.result.append(root.right)
+            if root.left: 
+                self.result.append(root.left)
+                root.left = None
+            if root.right: 
+                self.result.append(root.right)
+                root.right = None
         return root
