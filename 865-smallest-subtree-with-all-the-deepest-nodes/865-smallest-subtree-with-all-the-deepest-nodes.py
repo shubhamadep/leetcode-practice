@@ -1,13 +1,22 @@
 class Solution:
     def subtreeWithAllDeepest(self, root: TreeNode) -> TreeNode:
-        Result = collections.namedtuple("Result", ("node", "dist"))
-        def dfs(node):
-            # Return the result of the subtree at this node.
-            if not node: return Result(None, 0)
-            L, R = dfs(node.left), dfs(node.right)
-            if L.dist > R.dist: return Result(L.node, L.dist + 1)
-            if L.dist < R.dist: return Result(R.node, R.dist + 1)
-            return Result(node, L.dist + 1)
-
-        return dfs(root).node
+        if not root:
+            return None
+        
+        def helper(node):
+            if not node:
+                return None, 0
+            
+            left_node, left_depth = helper(node.left)
+            right_node, right_depth = helper(node.right)
+            
+            if left_depth > right_depth:
+                return left_node, left_depth + 1
+            elif right_depth > left_depth:
+                return right_node, right_depth + 1
+            else:
+                return node, left_depth + 1
+        
+        node, depth = helper(root)
+        return node
         
