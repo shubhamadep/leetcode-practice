@@ -1,12 +1,4 @@
-'''
-
-1,1,1
-1,2,2
-1,2,3
-
-'''
-
-class Solution:
+class Solution:    
     def maximalSquare(self, matrix: List[List[str]]) -> int:
         
         dp = [[0]*(len(matrix[0])+1) for _ in range(len(matrix)+1)]
