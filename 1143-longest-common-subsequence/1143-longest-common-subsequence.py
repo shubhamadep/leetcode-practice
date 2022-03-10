@@ -1,26 +1,16 @@
 class Solution:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
         
-        memo = [[-1 for _ in range(len(text2))] for _ in range(len(text1))]
-        
-        def memo_solve(p1, p2):
-            
-            # Base case: If either string is now empty, we can't match
-            # up anymore characters.
-            if p1 == len(text1) or p2 == len(text2):
+        @cache
+        def helper(i, j):
+            if j == -1 or i == -1:
                 return 0
             
-            if memo[p1][p2] != -1:
-                return memo[p1][p2]
-            
-            # Recursive case 1.
-            if text1[p1] == text2[p2]:
-                memo[p1][p2] = 1 + memo_solve(p1 + 1, p2 + 1)
-            
-            # Recursive case 2.
+            val = 0
+            if text1[i] == text2[j]:
+                return helper(i-1, j-1) + 1
             else:
-                memo[p1][p2] =  max(memo_solve(p1, p2 + 1), memo_solve(p1 + 1, p2))
+                return max(val, helper(i-1, j), helper(i, j-1))
             
-            return memo[p1][p2]
-            
-        return memo_solve(0, 0)
+        return helper(len(text1)-1, len(text2)-1)
+        
