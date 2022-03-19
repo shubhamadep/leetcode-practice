@@ -1,15 +1,23 @@
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
         
-        lengths = [1]* len(nums)
+        def binary_search(num, end):
+            left = 1
+            right = end
+            while left <= right:
+                mid = left + (right - left) // 2
+                if nums[lengths_at_index[mid]] < num:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+            return left
         
-        for i in range(1, len(nums)):
-            num1 = nums[i]
-            for j in range(i):
-                num2 = nums[j]
-                
-                if num2 < num1:
-                    if lengths[i] < lengths[j] + 1:
-                        lengths[i] = lengths[j] + 1
+        lengths_at_index = [0] * (len(nums)+1)
+        max_length = 0
         
-        return max(lengths)
+        for i, num in enumerate(nums):
+            new_length = binary_search(num, max_length)
+            lengths_at_index[new_length] = i
+            max_length = max(max_length, new_length)
+        
+        return max_length
