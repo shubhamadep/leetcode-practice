@@ -2,12 +2,12 @@ class Solution:
     def maxProfit(self, prices: List[int]) -> int:
         
         @lru_cache(None)
-        def dp(i, transactions_remaining, holding):
+        def dp(i, cool_down, holding):
             # Base case
             if i >= len(prices): 
                 return 0
             
-            do_nothing = dp(i + 1, transactions_remaining, holding)
+            do_nothing = dp(i + 1, cool_down, holding)
             do_something = 0
 
             if holding:
