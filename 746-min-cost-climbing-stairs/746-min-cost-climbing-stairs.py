@@ -8,8 +8,13 @@ class Solution:
         if len(cost) < 3:
             return min(cost)
         
-        dp = [0] * (len(cost)+1)
-        for i in range(2, len(dp)):
-            dp[i] = min(dp[i-2]+cost[i-2], dp[i-1]+cost[i-1])
+        #dp = [0] * (len(cost)+1)
+        prev_1 = 0
+        prev_2 = 0
         
-        return dp[-1]
+        for i in range(2, len(cost)+1):
+            temp = min(prev_1+cost[i-2], prev_2+cost[i-1])
+            prev_1 = prev_2
+            prev_2 = temp
+        
+        return prev_2
