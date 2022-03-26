@@ -5,7 +5,7 @@ Space: O(V)
 
 dfs
 TC: O(V + E)
-Space: O(V+E)
+Space: O(V+E) -> for adj_list
 
 '''
 class Solution:
