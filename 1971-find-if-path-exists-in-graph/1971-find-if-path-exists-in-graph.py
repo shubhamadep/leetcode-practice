@@ -1,25 +1,32 @@
+'''
+union find
+TC: O(E + VlogV)
+Space: O(V)
+
+dfs
+TC: O(V + E)
+Space: O(V+E)
+
+'''
 class Solution:
     def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
-        graph = defaultdict(list)
         
-        for edge in edges:
-            graph[edge[0]].append(edge[1])
-            graph[edge[1]].append(edge[0])
-        
-        visited = set()
-        
-        def dfs(node, dest):
-            if node == dest:
+        def helper(visited, node, destination):
+            if node == destination:
                 return True
-                
-            visited.add(node)
             
-            all_paths = []
-            for neighbor in graph[node]:
-                if neighbor in visited:
-                    continue
-                all_paths.append(dfs(neighbor, dest))
-			# return true if any of the paths were able to find the value
-            return any(all_paths)
+            visited[node] = True
+            for neighbor_node in adj_list[node]:
+                if not visited[neighbor_node] and helper(visited, neighbor_node, destination):
+                    return True
+            
+            return False
+            
+        visited = [False] * n
         
-        return dfs(source, destination)
+        adj_list = collections.defaultdict(list)
+        for node1, node2 in edges:
+            adj_list[node1].append(node2)
+            adj_list[node2].append(node1)
+            
+        return helper(visited, source, destination)
