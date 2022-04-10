@@ -1,23 +1,28 @@
 class Solution:
     def calculate(self, s: str) -> int:
-        prevOperator = '+'
         stack = []
+        sign = '+'
         number = 0
         
-        for i in range(len(s)):
-            char = s[i]
+        def stack_handler(sign, number):
+            if sign == '+':
+                stack.append(number)
+            elif sign == '-':
+                stack.append(-number)
+            elif sign == '*':
+                stack[-1] *= number
+            elif sign == '/':
+                stack[-1] = int(stack[-1] / number)
+        
+        for char in s:
             if char.isdigit():
-                number = number*10 + int(char)
-            if char in ['+', '-', '/', '*'] or i+1 == len(s):
-                if prevOperator == '+':
-                    stack.append(number)
-                elif prevOperator == '-':
-                    stack.append(-number)
-                elif prevOperator == '/':
-                    stack[-1] = int(stack[-1]/number)
-                elif prevOperator == '*':
-                    stack[-1] *= number
+                number = (number * 10) + int(char)        
+            elif char in ['+', '-', '*', '/']:
+                stack_handler(sign, number)
+                sign = char
                 number = 0
-                prevOperator = char
+        
+        stack_handler(sign, number)
         
         return sum(stack)
+                
