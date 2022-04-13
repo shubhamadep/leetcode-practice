@@ -1,20 +1,27 @@
 class Solution:
     def largestValues(self, root: Optional[TreeNode]) -> List[int]:
+        if not root:
+            return []
         
-        res = []
-
-        def helper(root, depth):
-            if root is None:
-                return
-            
-            if depth == len(res):
-                res.append(root.val)
-            else:
-                res[depth] = max(res[depth], root.val)
-            
-            helper(root.left, depth + 1)
-            helper(root.right, depth + 1)
+        queue = collections.deque()
+        queue.append(root)
+        result = []
         
-        helper(root, 0)
-        return res
+        while queue:
+            children = []
+            max_child = float('-inf')
+            while queue:
+                node = queue.popleft()
+                max_child = max(max_child, node.val)
+                children.append(node)
+            
+            result.append(max_child)
+            for node in children:
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+        
+        return result
+            
         
