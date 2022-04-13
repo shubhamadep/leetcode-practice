@@ -26,7 +26,6 @@ class Solution:
         interval = 1
         
         while interval < numberofLists:
-            i = 0
             for i in range(0, numberofLists-interval, interval*2):
                 lists[i] = merge(lists[i], lists[i+interval])
             interval *= 2
