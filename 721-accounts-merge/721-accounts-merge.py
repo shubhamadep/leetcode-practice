@@ -1,54 +1,44 @@
-'''
-[["John","johnsmith@mail.com","john_newyork@mail.com"],["John","johnsmith@mail.com","john00@mail.com"],["Mary","mary@mail.com"],["John","johnnybravo@mail.com"]]
 
-"johnsmith@mail.com" -> (0)
-merged_set  = (0, 2)
-sorting = logn
-
-Graph problem
-
-'''
-from collections import defaultdict, deque
 class Solution:
     def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
-        
         if not accounts:
             return []
         
-        email_name = defaultdict(str)
-        emails = defaultdict(list)
+        email_graph = collections.defaultdict(list)
+        email_names = collections.defaultdict(str)
         
-        for acc in accounts:
-            name = acc[0]
-            base = acc[1]
-            email_name[base] = name
-            for em in acc[2:]:
-                emails[base].append(em)
-                emails[em].append(base)
-                email_name[em] = name
+        for account in accounts:
+            name = account[0]
+            base_email = account[1]
+            email_names[base_email] = name
+            for email in account[2:]:
+                email_graph[email].append(base_email)
+                email_graph[base_email].append(email)
+                email_names[email] = name
         
-        visited= set()
+        visited = set()
         result = []
-        for en in email_name:
-            if en not in visited:
+        
+        for email in email_names:
+            if email not in visited:
+                queue = collections.deque()
+                temp_result = []
+                queue.append(email)
+                visited.add(email)
                 
-                current_result = []
-                current_result.append("")
-                q = deque([en])
-                visited.add(en)
+                while queue:
+                    node = queue.popleft()
+                    temp_result.append(node)
+                    for neighbor in email_graph[node]:
+                        if neighbor not in visited:
+                            visited.add(neighbor)
+                            queue.append(neighbor)
                 
-                while q:
-                    email = q.popleft()
-                    current_result.append(email)
-                    for em in emails[email]:
-                        if em not in visited:
-                            visited.add(em)
-                            q.append(em)
-                
-                current_result.sort()
-                current_result[0] = email_name[en]
-                result.append(current_result)
+                temp_result.sort()
+                result.append([email_names[email]]+temp_result)
         
         return result
-            
+                
+                
+        
         
