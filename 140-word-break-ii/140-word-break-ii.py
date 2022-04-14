@@ -1,25 +1,28 @@
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
-        memo = collections.defaultdict(list)
+        
+        cache = {}
         wordDict = set(wordDict)
-
-        def find_sentences(sentence):
-
-            if not sentence:
+        
+        def helper(idx):
+            if idx == len(s):
                 return [[]]
-
-            if sentence in memo:
-                return memo[sentence]
-
-            for sentence_end in range(1, len(sentence) + 1):
-                current_word = sentence[:sentence_end]
-                if current_word in wordDict:
-                    sentence_breaks = find_sentences(sentence[sentence_end:])
-
-                    for sentence_break in sentence_breaks:
-                        memo[sentence].append([current_word] + sentence_break)
-
-            return memo[sentence]
-
-        find_sentences(s)
-        return [" ".join(sentence) for sentence in memo[s]]
+            
+            if idx in cache:
+                return cache[idx]
+            
+            can_reach = []
+            for i in range(idx, len(s)):
+                word = s[idx:i+1]
+                if word in wordDict:
+                    valid_sentences = helper(i+1)
+                    for sentence in valid_sentences:
+                        new_sentence = [word] + sentence
+                        can_reach.append(new_sentence)
+            
+            cache[idx] = can_reach
+            return cache[idx]
+        
+        word_breaks = helper(0)
+        return [" ".join(sentence) for sentence in word_breaks]
+                    
