@@ -1,3 +1,15 @@
+'''
+
+update_max
+count = 2
+
+
+          i
+1,1,1,0,0,0,1,1,1,1,0
+                    j
+      
+'''
+
 class Solution:
     def longestOnes(self, nums: List[int], k: int) -> int:
         if not nums:
